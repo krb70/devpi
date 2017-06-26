@@ -111,9 +111,10 @@ def _main(pluginmanager, argv=None):
             if bgserver.info.isrunning():
                 bgserver.line("server is running with pid %s" %
                               bgserver.info.pid)
+                return True
             else:
                 bgserver.line("no server is running")
-            return
+            return False
 
     if args.passwd:
         from devpi_server.model import run_passwd

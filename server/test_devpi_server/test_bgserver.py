@@ -24,13 +24,13 @@ def test_server_commands(tmpdir, monkeypatch):
     portopt = "--port=" + str(port)
     main(["devpi-server", "--init", "--start", portopt])
     try:
-        main(["devpi-server", "--status"])
+        assert main(["devpi-server", "--status"])
         main(["devpi-server", "--log"])
         # make sure we can't start a server if one is already running
         with pytest.raises(SystemExit):
             main(["devpi-server", "--start", portopt])
     finally:
-        main(["devpi-server", "--stop"])
+        assert main(["devpi-server", "--stop"]) == 0
 
 
 def test_no_proxy(monkeypatch):
