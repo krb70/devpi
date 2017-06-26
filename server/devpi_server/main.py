@@ -108,7 +108,7 @@ def _main(pluginmanager, argv=None):
         elif args.log:
             return bgserver.log()
         elif args.status:
-            if bgserver.info.isrunning():
+            if bgserver.info.isrunning(trywait=False):
                 bgserver.line("server is running with pid %s" %
                               bgserver.info.pid)
             else:

@@ -67,13 +67,14 @@ class XProcessInfo:
         kernel32.CloseHandle(handle)
         return is_running or exit_code.value == 259
 
-    def isrunning(self):
+    def isrunning(self,trywait = False):
         if self.pid is not None:
             if sys.platform == "win32":
                 return self._isrunning_win32(self.pid)
             try:
                 os.kill(self.pid, 0)
-                os.waitpid(self.pid, os.WNOHANG)
+                if trywait :
+                    os.waitpid(self.pid, os.WNOHANG)
                 return True
             except OSError:
                 pass
